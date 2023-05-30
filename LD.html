@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>FA Company</title>
+  <link rel="stylesheet" href="mystyle.css">
+</head>
+
+<body>
+  <header>
+    <center>
+      <h1>FA Company</h1>
+      <img src="logo.png" alt="Šeit jābūt uzņēmuma logo" width="400" height="180">
+    </center>
+  </header>
+  <main>
+    <p>Uzņēmums nodarbojas ar finanšu pakalpojumiem, sniedz atbalstu kritiskājās situācijās,
+      ka arī nodrošīna dažāda cita veida finanšu palīdzību.
+      Uzņēmuma e-pasts: fakomanija@fa.lv ;
+      Telefona numurs +37123456789 ;
+      Uzņēmuma adrese: Kalpaka Bulvāris 36 </p>
+    <h2>Uzņēmuma darba laiki:</h2>
+    <ul class="check-list">
+      <li>Pirmdiena: 9:00 - 17:00 </li>
+      <li>Otrdiena : 9:00 - 17:00</li>
+      <li>Trešdiena : 9:00 - 17:00</li>
+      <li>Ceturtdiena : 9:00 - 17:00</li>
+      <li>Piektdiena : 9:00 - 16:00</li>
+      <li>Sestdiena : 10:00 - 14:00</li>
+      <li>Svētdiena : Brīvs</li>
+    </ul>
+  </main>
+  <main>
+    <div class="form">
+      <h2>
+        <center>Aizpildiet pieteikumu</center>
+      </h2>
+      <form action="script.php" method="post">
+        <label for="name">Ievadiet vārdu:</label><br>
+        <input type="text" id="name" name="name" placeholder="Tikai burti" required><br>
+        <label for="number">Ievadiet tālruni:</label><br>
+        <input type="text" id="number" name="number" placeholder="Tikai 8 cipari" required>
+        <br>Izvēlieties pakalpojumu veidu:<br>
+        <input type="radio" id="cat1" name="cat1" value="category1" onchange="myFunction()">
+        <label for="category1">Saruna ar ekspertu</label><br>
+        <input type="radio" id="cat2" name="cat2" value="category2" onchange="myFunction()">
+        <label for="category2">Video patstāvīgai apgūšanai </label><br>
+        <br>Izvēlieties :<br>
+        <label for="combo"></label>
+        <select id="combo" name="combo"></select><br>
+        <br>
+        <button class="button" onclick="submitOnClick()">Nosūtīt</button>
+      </form>
+    </div>
+    <script>
+      const input = document.getElementById("myInput");
+      const error = document.getElementById("error");
+      const nameInput = document.getElementById("name");
+      const numberInput = document.getElementById("number");
+      nameInput.addEventListener("input", function () {
+        const regex = /^[a-zA-Z]+$/;
+        const isValid = regex.test(nameInput.value);
+        if (!isValid) {
+          nameInput.setCustomValidity("Laukā drīkst ievadīt tikai burtus!");
+        } else {
+          nameInput.setCustomValidity("");
+        }
+      });
+      numberInput.addEventListener("input", function () {
+        const numberValue = numberInput.value;
+        if (!/^\d{8}$/.test(numberValue)) {
+          numberInput.setCustomValidity("Tālruņa numuram jāsatur 8 ciparus.");
+        } else {
+          numberInput.setCustomValidity("");
+        }
+      });
+      const categories = [document.getElementById("cat1"), document.getElementById("cat2")];
+      const combo = document.getElementById("combo");
+      function addOption(value, text) {
+        const option = document.createElement("option");
+        option.value = value;
+        option.text = text;
+        combo.add(option);
+      }
+      function myFunction() {
+        combo.innerHTML = "";
+        if (categories[0].checked) {
+          categories[1].checked = false;
+          addOption("Eksperts Andris", "Eksperts Andris");
+          addOption("Eksperts Oskars", "Eksperts Oskars");
+        }
+        else if (categories[1].checked) {
+          categories[0].checked = false;
+          addOption("Video par naudu", "Video par naudu");
+          addOption("Video par banku", "Video par banku");
+        }
+      };
+      function showInfo() {
+        var name = document.getElementById("nameInput").value;
+        var number = document.getElementById("numberInput").value;
+        if (name === "" || number === "") {
+          alert("Lūdzu, aizpildiet visus laukus!");
+          return;
+        }
+        document.getElementById("name").innerText = name;
+        document.getElementById("number").innerText = number;
+      }
+      function submitOnClick() {
+        let name = document.getElementById("name");
+        alert('Paldies,' + name.value + '! Jūsu pieteikums ir iesniegts!');
+      }
+    </script>
+  </main>
+</body>
+</html>
